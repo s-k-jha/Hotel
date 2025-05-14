@@ -1,11 +1,15 @@
 const express = require('express');
 const app = express();
 const db = require('./db.js');
-
+const personRoutes = require('./routes/PersonRoutes.js'); // Import the person routes
+const menuRoutes = require('./routes/menuRouter.js'); // Import the menu routes
 const bodyParser = require('body-parser');
+const router = express.Router();
+
+
 const { find } = require('lodash');
 require('dotenv').config(); // Load environment variables from .env file
-// install first if not done: npm install cors
+
 const cors = require('cors');
 app.use(cors());
 const PORT = process.env.PORT || 3000;
@@ -53,8 +57,7 @@ app.post('/person', (req, res) => {
 
 })
        */
-const personRoutes = require('./routes/PersonRoutes.js'); // Import the person routes
-const menuRoutes = require('./routes/menuRouter.js'); // Import the menu routes
+
 
 
 
