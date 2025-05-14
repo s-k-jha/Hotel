@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const db = require('./db.js');
 const personRoutes = require('./routes/PersonRoutes.js'); // Import the person routes
-const menuRoutes = require('./routes/menuRouter.js'); // Import the menu routes
+const menuRoutes = require('./routes/MenuRoutes.js'); // Import the menu routes
 const bodyParser = require('body-parser');
 const router = express.Router();
 
