@@ -34,7 +34,7 @@ function App() {
     }
 
     try {
-      const res = await fetch('http://localhost:3000/menu/', {
+      const res = await fetch('https://hotel-server-abx9.onrender.com/menu', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
