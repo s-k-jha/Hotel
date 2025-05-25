@@ -1,24 +1,23 @@
-const moongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-const personSchema = new moongoose.Schema({
+const personSchema = new mongoose.Schema({
     name: {
         type: String,
     },
     age: {
-        Number
+        type: Number,  // ✅ fixed here
     },
     work: {
         type: String,
-        enum: ['developer', 'designer', 'manager', 'warden']
+        enum: ['developer', 'designer', 'manager', 'warden'],
     },
     email: {
-        String,
+        type: String,  // ✅ added 'type'
         // unique: true,
     },
     phone: {
         type: String,
     },
-
     address: {
         type: String,
     },
@@ -29,12 +28,9 @@ const personSchema = new moongoose.Schema({
     password: {
         required: true,
         type: String,
-
-    }
-
+    },
 });
 
-// Create a model based on the schema
-const Person = moongoose.model('Person', personSchema);
+const Person = mongoose.model('Person', personSchema);
 
 module.exports = Person;

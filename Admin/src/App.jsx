@@ -1,14 +1,17 @@
 import { useState } from 'react'
 import './App.css'
-
+import MenuForm from './components/MenuForm'
+// import Person from '../../Backend/models/person'
+import PersonForm from './components/PersonForm'
 function App() {
   const [showForm, setShowForm] = useState(false)
+  const [showStaffForm, setShowStaffForm] = useState(false)
+
   const [formData, setFormData] = useState({
     name: '',
     price: '',
     taste: 'sweet',
     is_drink: false,
-    // ingredients: '',
     sales: '',
     image: ''
   })
@@ -28,7 +31,6 @@ function App() {
       price: Number(formData.price),
       taste: formData.taste,
       is_drink: formData.is_drink,
-      // ingredients: formData.ingredients,
       sales: formData.sales ? Number(formData.sales) : 0,
       image: formData.image,
     }
@@ -40,65 +42,125 @@ function App() {
         body: JSON.stringify(payload),
       })
       const data = await res.json()
-      // res.status(200).send(data);
       alert('Item added successfully!')
       setFormData({
         name: '',
         price: '',
         taste: 'sweet',
         is_drink: false,
-        // ingredients: '',
         sales: '',
         image: ''
       })
       setShowForm(false)
     } catch (err) {
       alert('Failed to add item.')
-      // res.status(400).send('Failed to add item.')
+      console.error(err)
+    }
+  }
+
+  // Staff Form Data Handler
+  const [staffFormData, setStaffFormData] = useState({
+    name: '',
+    age: '',
+    work: '',
+    email: '',
+    phone: '',
+    address: '',
+    username: '',
+    password: ''
+  })
+  const handleStaffChange = (e) => {
+    const { name, value } = e.target
+    setStaffFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+  const handleStaffSubmit = async (e) => {
+    e.preventDefault()
+    const payload = {
+      name: staffFormData.name,
+      age: Number(staffFormData.age),
+      work: staffFormData.work,
+      email: staffFormData.email,
+      phone: staffFormData.phone,
+      address: staffFormData.address,
+      username: staffFormData.username,
+      password: staffFormData.password
+    }
+
+    try {
+      const res = await fetch('https://hotel-server-abx9.onrender.com/person', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json()
+      alert('Staff member added successfully!')
+      setStaffFormData({
+        name: '',
+        age: '',
+        work: '',
+        email: '',
+        phone: '',
+        address: '',
+        username: '',
+        password: ''
+      })
+      setShowStaffForm(false)
+    } catch (err) {
+      alert('Failed to add staff member.')
       console.error(err)
     }
   }
 
   return (
-    <div className="App">
-      <h1>ADMIN PANEL</h1>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-        <div>
-          <button onClick={() => setShowForm(true)}>Add Menu Item</button>
-        </div>
-        <div>
-          <button onClick={() => console.log("add person functioon")}>Add Staff Members</button>
+    <>
+
+      <div className="App">
+        <h1>ADMIN PANEL</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+          <div>
+            <button onClick={() => {
+              setShowForm(true)
+              setShowStaffForm(false)
+            }}>Add Menu Item</button>
+          </div>
+          <div>
+            <button onClick={() => {
+              setShowStaffForm(true)
+              setShowForm(false)
+            }}>Add Staff Members</button>
+          </div>
         </div>
       </div>
 
-      {showForm && (
-        <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
-          <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required style={{ marginRight: '10px' }} />
-          <input name="price" type="number" value={formData.price} onChange={handleChange} placeholder="Price" required />
-          <br />
+      {showForm && <MenuForm
+        showForm={showForm}
+        setShowForm={setShowForm}
+        formData={formData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />}
 
-          <br />
-          {/* <input name="ingredients" value={formData.ingredients} onChange={handleChange} placeholder="Ingredients (comma separated)" /> */}
-          <input name="sales" type="number" value={formData.sales} onChange={handleChange} placeholder="Sales (default 0)" style={{ marginRight: '10px' }} />
-          <input name="image" value={formData.image} onChange={handleChange} placeholder="Image URL" />
-          <br />
-          <br />
-          <select name="taste" value={formData.taste} onChange={handleChange} required>
-            <option value="sweet">Sweet</option>
-            <option value="sour">Sour</option>
-            <option value="spicy">Spicy</option>
-          </select>
+      {
+        showStaffForm &&
+        <PersonForm
+          showForm={showStaffForm}
+          setShowForm={setShowStaffForm}
+          formData={staffFormData}
+          handleChange={handleStaffChange}
+          handleSubmit={handleStaffSubmit}
+        />
 
-          <label>
-            <input name="is_drink" type="checkbox" checked={formData.is_drink} onChange={handleChange} />
-            Is Drink
-          </label>
-          <br />
-          <button type="submit">Submit</button>
-        </form>
-      )}
-    </div>
-  )
+      }
+
+
+    </>
+
+
+
+  );
 }
 
 export default App
