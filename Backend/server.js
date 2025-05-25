@@ -5,12 +5,14 @@ const personRoutes = require('./routes/PersonRoutes.js'); // Import the person r
 const menuRoutes = require('./routes/MenuRoutes.js'); // Import the menu routes
 const bodyParser = require('body-parser');
 const router = express.Router();
-
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const { find } = require('lodash');
 require('dotenv').config(); // Load environment variables from .env file
 
 const cors = require('cors');
+const Person = require('./models/person.js');
 app.use(cors());
 const PORT = process.env.PORT || 3000;
 
@@ -18,6 +20,41 @@ const PORT = process.env.PORT || 3000;
 //currently we assume ki fronend se json data aa raha hai
 app.use(bodyParser.json()); // store json data in req.body
 
+
+
+//Middleware function to log endpoint request details
+//Now we can pass this LogRequest function as a middleware to any route-> but we want to use it for all routes
+//So we can use app.use(LogRequest) to use this middleware for all routes
+const LogRequest = (req, res, next) => {
+    console.log(`[${new Date().toLocaleString()}] request made to ${req.originalUrl}`);
+    next();
+}
+
+app.use(LogRequest); // Use the middleware for all routes
+
+
+passport.use(new LocalStrategy(async (username, password, done) => {
+    // Authencation Logic here
+    try {
+        console.log('Received credentials:', username, password);
+        const User = await Person.findOne({ username: username });
+        if( !User){
+            return done(null, false, {message: 'User not found'});
+        }
+
+        const isPasswordValid = User.password === password ? true : false;
+        if(isPasswordValid){
+            return done(null, User);
+        }else{
+            return done(null, false, {message: 'Invalid password'});
+        }
+
+    }
+    catch (error) {
+        console.error('Error during authentication:', error);
+        return done(error);
+    }
+}));
 app.get('/', (req, res) => {
     res.send('Hello World!');
 }

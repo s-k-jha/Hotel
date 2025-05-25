@@ -1,7 +1,7 @@
 const moongoose = require('mongoose');
 
 const personSchema = new moongoose.Schema({
-    name:{
+    name: {
         type: String,
     },
     age: {
@@ -15,8 +15,23 @@ const personSchema = new moongoose.Schema({
         String,
         // unique: true,
     },
-    phone: String,
-    address: String
+    phone: {
+        type: String,
+    },
+
+    address: {
+        type: String,
+    },
+    username: {
+        required: true,
+        type: String,
+    },
+    password: {
+        required: true,
+        type: String,
+
+    }
+
 });
 
 // Create a model based on the schema

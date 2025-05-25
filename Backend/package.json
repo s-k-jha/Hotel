@@ -7,6 +7,8 @@
     "lodash": "^4.17.21",
     "mongoose": "^8.14.1",
     "nodemon": "^3.1.10",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "prompt-sync": "^4.2.0"
   },
   "name": "node1",
