@@ -5,14 +5,15 @@ const personSchema = new mongoose.Schema({
         type: String,
     },
     age: {
-        type: Number,  // ✅ fixed here
+        type: Number,  
     },
     work: {
         type: String,
-        enum: ['developer', 'designer', 'manager', 'warden'],
+        enum: ['developer', 'designer', 'manager', 'warden', 'BDE', 'HR', 'other'], 
+        default: 'other', 
     },
     email: {
-        type: String,  // ✅ added 'type'
+        type: String, 
         // unique: true,
     },
     phone: {
