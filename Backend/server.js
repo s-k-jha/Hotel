@@ -5,14 +5,12 @@ const personRoutes = require('./routes/PersonRoutes.js'); // Import the person r
 const menuRoutes = require('./routes/MenuRoutes.js'); // Import the menu routes
 const bodyParser = require('body-parser');
 const router = express.Router();
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const passport = require('./auth.js'); // Import the passport configuration
 
 const { find } = require('lodash');
 require('dotenv').config(); // Load environment variables from .env file
 
 const cors = require('cors');
-const Person = require('./models/person.js');
 app.use(cors());
 const PORT = process.env.PORT || 3000;
 
@@ -33,28 +31,10 @@ const LogRequest = (req, res, next) => {
 app.use(LogRequest); // Use the middleware for all routes
 
 
-passport.use(new LocalStrategy(async (username, password, done) => {
-    // Authencation Logic here
-    try {
-        console.log('Received credentials:', username, password);
-        const User = await Person.findOne({ username: username });
-        if( !User){
-            return done(null, false, {message: 'User not found'});
-        }
 
-        const isPasswordValid = User.password === password ? true : false;
-        if(isPasswordValid){
-            return done(null, User);
-        }else{
-            return done(null, false, {message: 'Invalid password'});
-        }
+app.use(passport.initialize()); // Initialize passport middleware
+const localAuthMiddleware = passport.authenticate('local', { session: false });
 
-    }
-    catch (error) {
-        console.error('Error during authentication:', error);
-        return done(error);
-    }
-}));
 app.get('/', (req, res) => {
     res.send('Hello World!');
 }
@@ -98,8 +78,8 @@ app.post('/person', (req, res) => {
 
 
 
-app.use('/menu', menuRoutes); // Use the menu routes with the '/menu' prefix
-app.use('/person', personRoutes); // Use the person routes with the '/person' prefix
+app.use('/menu' ,menuRoutes); // Use the menu routes with the '/menu' prefix
+app.use('/person',localAuthMiddleware, personRoutes); // Use the person routes with the '/person' prefix
 
 
 
