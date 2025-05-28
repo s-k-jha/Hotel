@@ -29,10 +29,22 @@ function Login() {
         <div className="login-wrapper">
             <div className="login-image">
                 {/* Replace with your actual image path */}
-                <img src="/hotel-img.jpg" alt="Left Image" />
+                {/* <img src="/hotel-img.jpg" alt="Left Image" />
+                 */}
+                <video
+                    src="/login-video.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                {/* video used for education purpose only not for commercial use 
+                source-> zomato */}
             </div>
             <div className="login-container">
-                <h2>Login</h2>
+                <h1 className='slogan'>Jaha Bhuk! Waha Hum!</h1>
+                <h2>Just 60 Seconds Away!</h2>
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <label htmlFor="username">Username:</label>
