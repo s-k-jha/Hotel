@@ -36,7 +36,7 @@ app.use(passport.initialize()); // Initialize passport middleware
 const localAuthMiddleware = passport.authenticate('local', { session: false });
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello World! Welcome to this Hotel, try hitting the /menu or /person endpoints to see the data.');
 }
 );
 
