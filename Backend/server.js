@@ -12,7 +12,8 @@ require('dotenv').config(); // Load environment variables from .env file
 
 const cors = require('cors');
 app.use(cors());
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
+const PORT = process.env.REACT_APP_BACKEND_URL || 3000; 
 
 
 //currently we assume ki fronend se json data aa raha hai
@@ -84,5 +85,5 @@ app.use('/person',localAuthMiddleware, personRoutes); // Use the person routes w
 
 
 app.listen(PORT, () => {
-    console.log("Server is running on port 3000");
+    console.log(`Server is running on port ${PORT}`);
 });
