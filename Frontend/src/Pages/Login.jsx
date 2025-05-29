@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-
 import '../style/Login.css';
 // const Image = require('../assets/hotel-img.jpg'); // Adjust the path as necessary
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -28,13 +21,10 @@ function Login() {
 
                 // Store the token in localStorage or sessionStorage
                 localStorage.setItem('token', token);
-                toast.success('Login successful!');
 
-                navigate('/home');
-                // window.location.href = 'https://hotel-server-abx9.onrender.com/menu';
-
+                // navigate('/home');
             } else {
-                toast.error('Login failed. Please check your credentials.');
+                alert('Login failed. Please check your credentials.');
             }
         } catch (error) {
             console.error('Error during login:', error);
@@ -43,18 +33,6 @@ function Login() {
 
     return (
         <div className="login-wrapper">
-            <ToastContainer
-                position="top-center"
-                autoClose={1000}
-                hideProgressBar={true}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
-
             <div className="login-image">
                 {/* Replace with your actual image path */}
                 {/* <img src="/hotel-img.jpg" alt="Left Image" />
@@ -95,9 +73,6 @@ function Login() {
                         />
                     </div>
                     <button type="submit">Login</button>
-                    <p className='register-link'>
-                        <a style={{color:'black'}}> Don't have an account? </a><a href="/register"> Register</a>
-                    </p>
                 </form>
             </div>
         </div>
