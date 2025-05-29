@@ -47,7 +47,7 @@ router.post('/login', async (req, res) => {
             username: user.username, 
         }
         const token = generateToken(payload); // Generate JWT token using the payload
-        console.log('Token generated successfully:', token);
+        // console.log('Token generated successfully:', token);
         res.status(200).json({ response: user, token: token }); // Send the user data and token in the response
 
     }
