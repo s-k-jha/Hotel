@@ -8,14 +8,20 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/login', {
+            const response = await fetch('http://localhost:3000/person/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
             });
 
             if (response.ok) {
-                console.log('Login successful');
+                const data = await response.json();
+                const token = data.token;
+                console.log('Login response:', data);
+
+                // Store the token in localStorage or sessionStorage
+                localStorage.setItem('token', token);
+
                 // navigate('/home');
             } else {
                 alert('Login failed. Please check your credentials.');
