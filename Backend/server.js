@@ -79,8 +79,8 @@ app.post('/person', (req, res) => {
 
 
 
-app.use('/menu' ,menuRoutes); // Use the menu routes with the '/menu' prefix
-app.use('/person',localAuthMiddleware, personRoutes); // Use the person routes with the '/person' prefix
+app.use('/menu' ,localAuthMiddleware,menuRoutes); // Use the menu routes with the '/menu' prefix
+app.use('/person', personRoutes); // Use the person routes with the '/person' prefix
 
 
 
