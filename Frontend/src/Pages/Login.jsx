@@ -11,6 +11,7 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [signup, setSignup] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -70,6 +71,14 @@ function Login() {
                 {/* video used for education purpose only not for commercial use 
                 source-> zomato */}
             </div>
+
+            {signup && (
+                <div className="signup-message">
+                    <h2>Signup Successful!</h2>
+                    <p>You can now login with your credentials.</p>
+                </div>
+            )}
+                
             <div className="login-container">
                 <h1 className='slogan'>Jaha Bhuk! Waha Hum!</h1>
                 <h2>Just 60 Seconds Away!</h2>
@@ -96,7 +105,7 @@ function Login() {
                     </div>
                     <button type="submit">Login</button>
                     <p className='register-link'>
-                        <a style={{color:'black'}}> Don't have an account? </a><a href="/register"> Register</a>
+                        <a style={{color:'black'}}> Don't have an account? </a><a href="/register" onClick={()=>setSignup(true)}> Register</a>
                     </p>
                 </form>
             </div>
