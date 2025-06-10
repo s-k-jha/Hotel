@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Person = require('../models/Person.js'); // Import the Person model
+const Person = require('../models/Person'); // Import the Person model
 const bodyParser = require('body-parser');
 
 const {jwtAuthMiddleware, generateToken} = require('../jwt.js'); 
