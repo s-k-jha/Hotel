@@ -71,7 +71,7 @@ function App() {
     formDataToSend.append('image', formData.image); // This is the File object
 
     try {
-      const res = await fetch('https://hotel-server-abx9.onrender.com/menu', {
+      const res = await fetch('http://localhost:3000/menu', {
         method: 'POST',
         body: formDataToSend
       });
@@ -124,7 +124,7 @@ function App() {
     }
 
     try {
-      const res = await fetch('https://hotel-server-abx9.onrender.com/person', {
+      const res = await fetch('http://localhost:3000/person', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
