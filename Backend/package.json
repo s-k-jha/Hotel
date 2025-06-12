@@ -8,6 +8,7 @@
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "mongoose": "^8.14.1",
+    "multer": "^2.0.1",
     "nodemon": "^3.1.10",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",

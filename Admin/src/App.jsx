@@ -13,7 +13,7 @@ function App() {
     taste: 'sweet',
     is_drink: false,
     sales: '',
-    image: ''
+    image: null
   })
 
   const handleChange = (e) => {
@@ -24,41 +24,75 @@ function App() {
     }))
   }
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   const payload = {
+  //     name: formData.name,
+  //     price: Number(formData.price),
+  //     taste: formData.taste,
+  //     is_drink: formData.is_drink,
+  //     sales: formData.sales ? Number(formData.sales) : 0,
+  //     image: formData.image,
+  //   }
+
+  //   try {
+  //     const res = await fetch('https://hotel-server-abx9.onrender.com/menu', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(payload),
+  //     })
+  //     const data = await res.json()
+  //     alert('Item added successfully!')
+  //     setFormData({
+  //       name: '',
+  //       price: '',
+  //       taste: 'sweet',
+  //       is_drink: false,
+  //       sales: '',
+  //       image: ''
+  //     })
+  //     setShowForm(false)
+  //   } catch (err) {
+  //     alert('Failed to add item.')
+  //     console.error(err)
+  //   }
+  // }
+
+  // Staff Form Data Handler
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const payload = {
-      name: formData.name,
-      price: Number(formData.price),
-      taste: formData.taste,
-      is_drink: formData.is_drink,
-      sales: formData.sales ? Number(formData.sales) : 0,
-      image: formData.image,
-    }
+    e.preventDefault();
+
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('price', formData.price);
+    formDataToSend.append('taste', formData.taste);
+    formDataToSend.append('is_drink', formData.is_drink);
+    formDataToSend.append('sales', formData.sales || 0);
+    formDataToSend.append('image', formData.image); // This is the File object
 
     try {
       const res = await fetch('https://hotel-server-abx9.onrender.com/menu', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      const data = await res.json()
-      alert('Item added successfully!')
+        body: formDataToSend
+      });
+
+      const data = await res.json();
+      alert('Item added successfully!');
       setFormData({
         name: '',
         price: '',
         taste: 'sweet',
         is_drink: false,
         sales: '',
-        image: ''
-      })
-      setShowForm(false)
+        image: null
+      });
+      setShowForm(false);
     } catch (err) {
-      alert('Failed to add item.')
-      console.error(err)
+      alert('Failed to add item.');
+      console.error(err);
     }
-  }
+  };
 
-  // Staff Form Data Handler
   const [staffFormData, setStaffFormData] = useState({
     name: '',
     age: '',
@@ -141,6 +175,7 @@ function App() {
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
+        setFormData={setFormData}
       />}
 
       {
