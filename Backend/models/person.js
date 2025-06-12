@@ -9,7 +9,7 @@ const personSchema = new mongoose.Schema({
     },
     work: {
         type: String,
-        enum: ['developer', 'designer', 'manager', 'warden', 'BDE', 'HR'], 
+        enum: ['developer', 'designer', 'manager', 'warden', 'BDE', 'HR','other'], 
         default: 'other', 
     },
     email: {
@@ -29,6 +29,10 @@ const personSchema = new mongoose.Schema({
     password: {
         required: true,
         type: String,
+    },
+    image: {
+        type: String,
+        default: '', 
     },
 });
 

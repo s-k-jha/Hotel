@@ -9,7 +9,7 @@ const storage = multer.memoryStorage()
 
 const upload = multer({ storage: storage })
 
-
+//before multer code
 // router.post('/',upload.single('image'), async (req, res) => {
 //     try {
 //         const data = req.body;
@@ -30,10 +30,12 @@ const upload = multer({ storage: storage })
 //         res.status(500).send("internal server error");
 //     }
 // })
+
+//after multer implementation
 router.post('/', upload.single('image'), async (req, res) => {
     try {
-        console.log("BODY:", req.body);
-        console.log("FILE:", req.file);
+        // console.log("BODY:", req.body);
+        // console.log("FILE:", req.file);
 
         const data = req.body;
 

@@ -101,36 +101,88 @@ function App() {
     phone: '',
     address: '',
     username: '',
-    password: ''
+    password: '',
+    image: null
   })
   const handleStaffChange = (e) => {
-    const { name, value } = e.target
+    const { name, value, type, files } = e.target
     setStaffFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === 'file' ? files[0] : value,
     }))
   }
+  // const handleStaffSubmit = async (e) => {
+  //   e.preventDefault()
+  //   // const payload = {
+  //   //   name: staffFormData.name,
+  //   //   age: Number(staffFormData.age),
+  //   //   work: staffFormData.work,
+  //   //   email: staffFormData.email,
+  //   //   phone: staffFormData.phone,
+  //   //   address: staffFormData.address,
+  //   //   username: staffFormData.username,
+  //   //   password: staffFormData.password
+  //   // }
+  //   const formData = new FormData();
+  //   formData.append('name', staffFormData.name);
+  //   formData.append('age', staffFormData.age);
+  //   formData.append('work', staffFormData.work);
+  //   formData.append('email', staffFormData.email);
+  //   formData.append('phone', staffFormData.phone);
+  //   formData.append('address', staffFormData.address);
+  //   formData.append('username', staffFormData.username);
+  //   formData.append('password', staffFormData.password);
+  //   formData.append('image',staffFormData.image);
+
+
+  //   try {
+  //     const res = await fetch('http://localhost:3000/person', {
+  //       method: 'POST',
+  //       // headers: { 'Content-Type': 'application/json' },
+  //       // body: JSON.stringify(payload),
+  //       body: formData
+  //     })
+  //     const data = await res.json()
+  //     alert('Staff member added successfully!')
+  //     setStaffFormData({
+  //       name: '',
+  //       age: '',
+  //       work: '',
+  //       email: '',
+  //       phone: '',
+  //       address: '',
+  //       username: '',
+  //       password: '',
+  //       image: null
+  //     })
+  //     setShowStaffForm(false)
+  //   } catch (err) {
+  //     alert('Failed to add staff member.')
+  //     console.error(err)
+  //   }
+  // }
   const handleStaffSubmit = async (e) => {
-    e.preventDefault()
-    const payload = {
-      name: staffFormData.name,
-      age: Number(staffFormData.age),
-      work: staffFormData.work,
-      email: staffFormData.email,
-      phone: staffFormData.phone,
-      address: staffFormData.address,
-      username: staffFormData.username,
-      password: staffFormData.password
-    }
+    e.preventDefault();
+
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', staffFormData.name);
+    formDataToSend.append('age', staffFormData.age);
+    formDataToSend.append('work', staffFormData.work);
+    formDataToSend.append('email', staffFormData.email);
+    formDataToSend.append('phone', staffFormData.phone);
+    formDataToSend.append('address', staffFormData.address);
+    formDataToSend.append('username', staffFormData.username);
+    formDataToSend.append('password', staffFormData.password);
+    formDataToSend.append('image', staffFormData.image); // file
 
     try {
-      const res = await fetch('http://localhost:3000/person', {
+      const res = await fetch('http://localhost:3000/person/signup', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      const data = await res.json()
-      alert('Staff member added successfully!')
+        body: formDataToSend
+      });
+
+      const data = await res.json();
+      alert('Staff member added successfully!');
       setStaffFormData({
         name: '',
         age: '',
@@ -139,14 +191,16 @@ function App() {
         phone: '',
         address: '',
         username: '',
-        password: ''
-      })
-      setShowStaffForm(false)
+        password: '',
+        image: null
+      });
+      setShowStaffForm(false);
     } catch (err) {
-      alert('Failed to add staff member.')
-      console.error(err)
+      alert('Failed to add staff member.');
+      console.error(err);
     }
-  }
+  };
+
 
   return (
     <>
@@ -175,7 +229,7 @@ function App() {
         formData={formData}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        setFormData={setFormData}
+        setFormData={setStaffFormData}
       />}
 
       {
@@ -186,6 +240,8 @@ function App() {
           formData={staffFormData}
           handleChange={handleStaffChange}
           handleSubmit={handleStaffSubmit}
+          setFormData={setFormData}
+
         />
 
       }

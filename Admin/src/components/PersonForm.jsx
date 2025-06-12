@@ -1,8 +1,9 @@
-function PersonForm({ showForm, setShowForm, formData, handleChange, handleSubmit }) {
+function PersonForm({ showForm, setShowForm, formData, handleChange, handleSubmit,setFormData }) {
+
     return (
         <div className="App">
             {showForm && (
-                <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
+                <form onSubmit={handleSubmit} style={{ marginTop: '20px' }} encType="multipart/form-data">
                     <input
                         name="name"
                         value={formData.name}
@@ -75,7 +76,20 @@ function PersonForm({ showForm, setShowForm, formData, handleChange, handleSubmi
                         required
                         style={{ marginRight: '10px', marginTop: '10px' }}
                     />
+                    
                     <br />
+                    <br />
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '25px' }}>
+                        Profile Image
+                        <input
+                            name="image"
+                            type="file"
+                            onChange={handleChange}
+                            required
+                        />
+                    </label>
+                    <br />
+
                     <button type="submit" style={{ marginTop: '10px', marginRight:'15px'}}>Submit</button>
                     <button onClick={()=>{setShowForm(false)}} style={{ marginTop: '10px' }}>Cancel</button>
 

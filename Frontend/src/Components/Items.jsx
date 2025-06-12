@@ -48,7 +48,7 @@ function Items({ items, addToCart }) {
                             e.target.onerror = null;
                             e.target.src = Placeholder;
                         }}
-                        className="w-full h-40 object-cover rounded-xl mb-3"
+                        className="w-full h-70 object-cover rounded-xl mb-3"
                     />
                     <h3 className="text-lg font-semibold text-center mb-1">{item.name}</h3>
                     <p className="text-md font-medium text-gray-800 mb-2">₹{item.price}</p>
