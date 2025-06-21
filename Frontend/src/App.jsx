@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from "./Components/ProtectedRoute";
 import OrderSuccess from "./Components/OrderSuccess";
+import Profile from "./Components/Profile";
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/order-success" element={<OrderSuccess/>} />
-
+        <Route path="/profile" element={<Profile/>} />
+        
         <Route path="/home" element={
           <ProtectedRoute>
             <Home />
